@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Group from "./Group";
 import { groups } from "../mockData.js";
 import Card from "./Card";
 import styled from "styled-components";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const Board = () => {
+  const [data, setData] = useState(groups);
+
+  const onDragEnd = (e) => {
+    console.log(e);
+  };
+
   return (
-    <Wrapper>
-      {groups.map(({ id, title, tasks } = groups) => (
-        <Group
-          key={id}
-          title={title}
-          children={tasks.map(({ id, task } = tasks) => (
-            <Card key={id} task={task} />
-          ))}
-        />
-      ))}
-    </Wrapper>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Wrapper>
+        {data.map(({ id, title, tasks }) => (
+          <Group
+            key={id}
+            id={id}
+            title={title}
+            cards={tasks.map(({ id, task }, index) => (
+              <Card key={id} id={id} index={index} task={task} />
+            ))}
+          />
+        ))}
+      </Wrapper>
+    </DragDropContext>
   );
 };
 
