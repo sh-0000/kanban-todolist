@@ -11,6 +11,10 @@ export const groups = [
         id: 12,
         task: "Learn React",
       },
+      {
+        id: 23,
+        task: "Learn Node",
+      },
     ],
   },
   {
