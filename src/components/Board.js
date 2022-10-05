@@ -3,13 +3,22 @@ import Group from "./Group";
 import { groups } from "../mockData.js";
 import Card from "./Card";
 import styled from "styled-components";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 
 const Board = () => {
   const [data, setData] = useState(groups);
 
-  const onDragEnd = (e) => {
-    console.log(e);
+  const onDragEnd = ({ draggableId, destination, source }) => {
+    const target = data[source.droppableId].tasks.filter(
+      (task) => task.id == draggableId
+    );
+    setData(
+      data.map((data) =>
+        data.id === Number(destination.droppableId)
+          ? { ...data, tasks: [...data.tasks, ...target] }
+          : data
+      )
+    );
   };
 
   return (

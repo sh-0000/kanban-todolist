@@ -1,6 +1,6 @@
 export const groups = [
   {
-    id: 1,
+    id: 0,
     title: "To do",
     tasks: [
       {
@@ -18,7 +18,7 @@ export const groups = [
     ],
   },
   {
-    id: 2,
+    id: 1,
     title: "In progress",
     tasks: [
       {
@@ -32,7 +32,7 @@ export const groups = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     title: "Completed",
     tasks: [],
   },

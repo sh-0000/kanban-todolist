@@ -26,6 +26,8 @@ const Wrapper = styled.div`
   background-color: hsl(0 0% 12%);
   border-radius: 0.5rem;
   height: 4rem;
+  margin-bottom: 1rem;
+  margin-inline: 1rem;
 
   .bar {
     position: absolute;

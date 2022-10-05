@@ -4,10 +4,14 @@ import { Droppable } from "react-beautiful-dnd";
 
 const Group = ({ id, title, cards }) => {
   return (
-    <Droppable droppableId={String(id)}>
+    <Droppable key={id} droppableId={String(id)}>
       {(provided) => (
-        <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
-          <div className="group-main">
+        <Wrapper>
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="group-main"
+          >
             <h2 className="group-title">{title}</h2>
             <div data-group={title} className="group-content">
               {cards}
@@ -29,17 +33,15 @@ const Wrapper = styled.div`
 
   .group-main {
     width: 100%;
-    padding: 1rem;
   }
 
   .group-title {
-    margin-bottom: 1rem;
+    margin: 1rem;
   }
 
   .group-content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
   }
 
   .group-content[data-group="To do"] {
