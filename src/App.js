@@ -1,5 +1,4 @@
 import Board from "./components/Board";
-import Groups from "./components/Group";
 
 function App() {
   return (

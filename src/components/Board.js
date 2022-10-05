@@ -1,41 +1,59 @@
 import React, { useState } from "react";
-import Group from "./Group";
-import { groups } from "../mockData.js";
+import { columnList } from "../mockData.js";
 import Card from "./Card";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
+import Column from "./Column";
 
 const Board = () => {
-  const [data, setData] = useState(groups);
+  const [columns, setColumns] = useState(columnList);
 
-  const onDragEnd = ({ draggableId, destination, source }) => {
-    const target = data[source.droppableId].tasks.filter(
-      (task) => task.id == draggableId
-    );
-    setData(
-      data.map((data) =>
-        data.id === Number(destination.droppableId)
-          ? { ...data, tasks: [...data.tasks, ...target] }
-          : data
-      )
-    );
+  const reorderList = (source, destination) => {
+    //References https://codesandbox.io/s/jovial-leakey-i0ex5?file=/src/App.js
+    const targetColumn = columns[source.droppableId];
+    const targetTasks = [...targetColumn.tasks];
+    const [removed] = targetTasks.splice(source.index, 1);
+    targetTasks.splice(destination.index, 0, removed);
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...targetColumn,
+        tasks: targetTasks,
+      },
+    });
+  };
+
+  const moveTarget = () => {
+    
+  };
+
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+
+    // eslint-disable-next-line
+    source.droppableId == destination.droppableId
+      ? reorderList(source, destination)
+      : moveTarget();
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Wrapper>
-        {data.map(({ id, title, tasks }) => (
-          <Group
-            key={id}
-            id={id}
-            title={title}
-            cards={tasks.map(({ id, task }, index) => (
-              <Card key={id} id={id} index={index} task={task} />
-            ))}
-          />
-        ))}
-      </Wrapper>
-    </DragDropContext>
+    <Wrapper>
+      <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+        {Object.entries(columns).map(([columnId, column]) => {
+          return (
+            <Column
+              key={columnId}
+              name={column.name}
+              id={columnId}
+              children={column.tasks.map(({ id, task }, index) => (
+                <Card key={id} id={id} index={index} task={task} />
+              ))}
+            />
+          );
+        })}
+      </DragDropContext>
+    </Wrapper>
   );
 };
 
@@ -44,6 +62,6 @@ export default Board;
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  align-items: start;
   gap: 1rem;
+  align-items: start;
 `;

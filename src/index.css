@@ -7,9 +7,13 @@
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   background-color: hsl(0 0% 12%);
   color: hsl(0 0% 100%);
+}
+
+ul {
+  list-style-type: none;
 }
 
 h1,

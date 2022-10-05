@@ -1,39 +1,25 @@
-export const groups = [
+const taskList = [
   {
-    id: 0,
-    title: "To do",
-    tasks: [
-      {
-        id: 11,
-        task: "Learn JS",
-      },
-      {
-        id: 12,
-        task: "Learn React",
-      },
-      {
-        id: 23,
-        task: "Learn Node",
-      },
-    ],
+    id: "1",
+    task: "Learn JS",
   },
   {
-    id: 1,
-    title: "In progress",
-    tasks: [
-      {
-        id: 21,
-        task: "Learn CSS",
-      },
-      {
-        id: 22,
-        task: "Learn HTML",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Completed",
-    tasks: [],
+    id: "2",
+    task: "Learn React",
   },
 ];
+//
+export const columnList = {
+  [0]: {
+    name: "Todo",
+    tasks: taskList,
+  },
+  [1]: {
+    name: "In Progress",
+    tasks: [],
+  },
+  [2]: {
+    name: "Done",
+    tasks: [],
+  },
+};
