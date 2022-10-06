@@ -6,17 +6,17 @@ const Column = ({ id, name, children }) => {
   return (
     <Wrapper>
       <h2 className="column-title">{name}</h2>
-      <Droppable key={name} droppableId={id}>
+      <Droppable key={id} droppableId={id}>
         {(provided, snapshot) => (
-          <ul {...provided.droppableProps} ref={provided.innerRef}>
-            <li
-              data-group={name}
-              className="column-content"
-              data-isdragging={snapshot.isDraggingOver}
-            >
-              {children}
-              {provided.placeholder}
-            </li>
+          <ul
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            data-group={name}
+            data-isdragging={snapshot.isDraggingOver}
+            className="column-content"
+          >
+            {children}
+            {provided.placeholder}
           </ul>
         )}
       </Droppable>
@@ -40,6 +40,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
+    min-height: 100px;
   }
 
   .column-content[data-isdragging="true"] {

@@ -7,9 +7,7 @@ import Column from "./Column";
 
 const Board = () => {
   const [columns, setColumns] = useState(columnList);
-
   const reorderList = (source, destination) => {
-    //References https://codesandbox.io/s/jovial-leakey-i0ex5?file=/src/App.js
     const targetColumn = columns[source.droppableId];
     const targetTasks = [...targetColumn.tasks];
     const [removed] = targetTasks.splice(source.index, 1);
@@ -23,8 +21,27 @@ const Board = () => {
     });
   };
 
-  const moveTarget = () => {
-    
+  const moveTarget = (source, destination) => {
+    const sourceCol = columns[source.droppableId];
+    const destCol = columns[destination.droppableId];
+
+    const sourceTasks = [...sourceCol.tasks];
+    const destTasks = [...destCol.tasks];
+
+    const [removed] = sourceTasks.splice(source.index, 1);
+    destTasks.splice(destination.index, 0, removed);
+
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...sourceCol,
+        tasks: sourceTasks,
+      },
+      [destination.droppableId]: {
+        ...destCol,
+        tasks: destTasks,
+      },
+    });
   };
 
   const onDragEnd = (result) => {
@@ -33,8 +50,8 @@ const Board = () => {
 
     // eslint-disable-next-line
     source.droppableId == destination.droppableId
-      ? reorderList(source, destination)
-      : moveTarget();
+      ? reorderList(source, destination) //References https://codesandbox.io/s/jovial-leakey-i0ex5?file=/src/App.js
+      : moveTarget(source, destination);
   };
 
   return (
@@ -44,10 +61,10 @@ const Board = () => {
           return (
             <Column
               key={columnId}
-              name={column.name}
               id={columnId}
-              children={column.tasks.map(({ id, task }, index) => (
-                <Card key={id} id={id} index={index} task={task} />
+              name={column.name}
+              children={column.tasks.map((task, index) => (
+                <Card key={task.id} index={index} task={task} />
               ))}
             />
           );

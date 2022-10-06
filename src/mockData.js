@@ -1,24 +1,24 @@
 const taskList = [
   {
     id: "1",
-    task: "Learn JS",
+    name: "Learn JS",
   },
   {
     id: "2",
-    task: "Learn React",
+    name: "Learn React",
   },
 ];
 //
 export const columnList = {
-  [0]: {
+  ["0"]: {
     name: "Todo",
     tasks: taskList,
   },
-  [1]: {
+  ["1"]: {
     name: "In Progress",
     tasks: [],
   },
-  [2]: {
+  ["2"]: {
     name: "Done",
     tasks: [],
   },
