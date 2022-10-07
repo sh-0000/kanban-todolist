@@ -1,11 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Card from "./Card";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
+import DeleteZone from "./DeleteZone";
 
 const Board = ({ columns, setColumns }) => {
+  const deleteTask = (source) => {
+    const targetColumn = columns[source.droppableId];
+    const targetTasks = [...targetColumn.tasks];
+    targetTasks.splice(source.index, 1);
+
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...targetColumn,
+        tasks: targetTasks,
+      },
+    });
+  };
+
   const reorderList = (source, destination) => {
     const targetColumn = columns[source.droppableId];
     const targetTasks = [...targetColumn.tasks];
@@ -48,11 +63,14 @@ const Board = ({ columns, setColumns }) => {
     if (!destination) return;
 
     // eslint-disable-next-line
-    source.droppableId == destination.droppableId
-      ? reorderList(source, destination) //References https://codesandbox.io/s/jovial-leakey-i0ex5?file=/src/App.js
-      : moveTarget(source, destination);
+    if (source.droppableId === destination.droppableId)
+      reorderList(source, destination);
+    if (source.droppableId !== destination.droppableId)
+      destination.droppableId === "delete"
+        ? deleteTask(source)
+        : moveTarget(source, destination);
   };
-
+  //References https://codesandbox.io/s/jovial-leakey-i0ex5?file=/src/App.js
   return (
     <Wrapper>
       <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
@@ -68,6 +86,7 @@ const Board = ({ columns, setColumns }) => {
             />
           );
         })}
+        <DeleteZone />
       </DragDropContext>
     </Wrapper>
   );
