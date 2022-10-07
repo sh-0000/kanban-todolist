@@ -4,29 +4,31 @@ import { Droppable } from "react-beautiful-dnd";
 
 const Column = ({ id, name, children }) => {
   return (
-    <Wrapper>
-      <h2 className="column-title">{name}</h2>
-      <Droppable key={id} droppableId={id}>
-        {(provided, snapshot) => (
+    <Droppable key={id} droppableId={id}>
+      {(provided, snapshot) => (
+        <Wrapper
+          columnName={name}
+          draggingOverWith={snapshot.draggingOverWith}
+          isDragging={snapshot.isDraggingOver}
+        >
+          <h2 className="column-title">{name}</h2>
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
-            data-group={name}
-            data-isdragging={snapshot.isDraggingOver}
             className="column-content"
           >
             {children}
             {provided.placeholder}
           </div>
-        )}
-      </Droppable>
-    </Wrapper>
+        </Wrapper>
+      )}
+    </Droppable>
   );
 };
 
 export default Column;
 
-const Wrapper = styled.div`
+const Wrapper = styled.ul`
   background-color: hsl(0 0% 25%);
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -43,25 +45,15 @@ const Wrapper = styled.div`
     min-height: 100px;
   }
 
-  .column-content[data-isdragging="true"] {
-    background-color: hsl(0 0% 29%);
+  .column-content {
+    transition: background-color 0.2s ease;
+    background-color: ${({ isDragging }) => isDragging && "hsl(0 0% 30%)"};
   }
 
-  .column-content[data-group="Todo"] {
-    .card-bar {
-      background-color: crimson;
-    }
-  }
-
-  .column-content[data-group="In Progress"] {
-    .card-bar {
-      background-color: blueviolet;
-    }
-  }
-
-  .column-content[data-group="Done"] {
-    .card-bar {
-      background-color: lime;
-    }
+  .card-bar {
+    background-color: ${({ columnName }) =>
+      (columnName === "Todo" && "crimson") ||
+      (columnName === "In Progress" && "blueviolet") ||
+      (columnName === "Done" && "lime")};
   }
 `;
