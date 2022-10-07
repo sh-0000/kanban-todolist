@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { columnList } from "../mockData.js";
+import React, { useEffect, useState } from "react";
+
 import Card from "./Card";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 
-const Board = () => {
-  const [columns, setColumns] = useState(columnList);
+const Board = ({ columns, setColumns }) => {
   const reorderList = (source, destination) => {
     const targetColumn = columns[source.droppableId];
     const targetTasks = [...targetColumn.tasks];

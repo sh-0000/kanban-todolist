@@ -8,7 +8,7 @@ const Column = ({ id, name, children }) => {
       <h2 className="column-title">{name}</h2>
       <Droppable key={id} droppableId={id}>
         {(provided, snapshot) => (
-          <ul
+          <div
             {...provided.droppableProps}
             ref={provided.innerRef}
             data-group={name}
@@ -17,7 +17,7 @@ const Column = ({ id, name, children }) => {
           >
             {children}
             {provided.placeholder}
-          </ul>
+          </div>
         )}
       </Droppable>
     </Wrapper>

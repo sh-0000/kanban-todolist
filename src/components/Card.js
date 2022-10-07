@@ -27,7 +27,7 @@ const Card = ({ index, task }) => {
 
 export default Card;
 
-const Wrapper = styled.li`
+const Wrapper = styled.div`
   .card-main {
     position: relative;
     background-color: hsl(0 0% 19%);
