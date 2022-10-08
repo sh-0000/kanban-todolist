@@ -32,10 +32,12 @@ const Wrapper = styled.ul`
   background-color: hsl(0 0% 25%);
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  min-width: 25%;
 
   .column-title {
     padding: 1rem;
     border-bottom: 1px solid;
+    user-select: none;
   }
 
   .column-content {
