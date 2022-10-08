@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { Draggable } from "react-beautiful-dnd";
@@ -35,7 +35,7 @@ const Wrapper = styled.li`
   position: relative;
   background-color: ${({ isDragging }) =>
     isDragging ? "hsl(0 0% 16%)" : "hsl(0 0% 19%)"};
-  user-select: "none";
+  user-select: none;
   border-radius: 0.5rem;
   margin-top: 0.5rem;
   padding: 0.5rem;
