@@ -7,7 +7,7 @@ A simple Kanban Todo List built using react-beautiful-dnd
 ## Technologies
 React, React beautiful dnd, Styled components and Uuid
 
-#Installation Guide
+## Installation Guide
 Clone or download this repository.
 
 Run install the dependencies
